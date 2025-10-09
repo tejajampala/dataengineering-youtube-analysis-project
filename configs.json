@@ -1,0 +1,37 @@
+{
+  "select_fields": [
+    "video_id", "trending_date", "title", "channel_title",
+    "category_id", "publish_time", "tags", "views", "likes",
+    "dislikes", "comment_count", "thumbnail_link",
+    "comments_disabled", "ratings_disabled",
+    "video_error_or_removed", "description", "region"
+  ],
+  "cast_mappings": [
+    ["video_id", "string"],
+    ["trending_date", "string"],
+    ["title", "string"],
+    ["channel_title", "string"],
+    ["category_id", "long"],
+    ["publish_time", "string"],
+    ["tags", "string"],
+    ["views", "long"],
+    ["likes", "long"],
+    ["dislikes", "long"],
+    ["comment_count", "long"],
+    ["thumbnail_link", "string"],
+    ["comments_disabled", "boolean"],
+    ["ratings_disabled", "boolean"],
+    ["video_error_or_removed", "boolean"],
+    ["description", "string"],
+    ["region", "string"]
+  ],
+  "rename_mappings": {
+    "likes": "like_count",
+    "dislikes": "dislike_count",
+    "comment_count": "total_comments",
+    "publish_time": "video_publish_time"
+  },
+  "target_path": "s3://de-on-youtube1-rawdata-useast1-dev/youtube/enriched_statistics_reference_data/",
+  "database": "youtube_db",
+  "target_table": "enriched_statistics_reference_data"
+}
