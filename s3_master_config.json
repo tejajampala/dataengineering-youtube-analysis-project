@@ -1,0 +1,79 @@
+{
+  "datasets": [
+    {
+      "name": "youtube_statistics",
+      "source": {
+        "database": "youtube_db",
+        "table_name": "raw_statistics_reference_data"
+      },
+      "target": {
+        "database": "youtube_db",
+        "table_name": "enriched_statistics_reference_data",
+        "path": "s3://de-on-youtube1-rawdata-useast1-dev/youtube/enriched_statistics_reference_data/"
+      },
+      "fields": {
+        "select": [
+          "video_id", "trending_date", "title", "channel_title",
+          "category_id", "publish_time", "tags", "views", "likes",
+          "dislikes", "comment_count", "thumbnail_link",
+          "comments_disabled", "ratings_disabled",
+          "video_error_or_removed", "description", "region"
+        ],
+        "cast": [
+          ["video_id", "string"],
+          ["trending_date", "string"],
+          ["title", "string"],
+          ["channel_title", "string"],
+          ["category_id", "long"],
+          ["publish_time", "string"],
+          ["tags", "string"],
+          ["views", "long"],
+          ["likes", "long"],
+          ["dislikes", "long"],
+          ["comment_count", "long"],
+          ["thumbnail_link", "string"],
+          ["comments_disabled", "boolean"],
+          ["ratings_disabled", "boolean"],
+          ["video_error_or_removed", "boolean"],
+          ["description", "string"],
+          ["region", "string"]
+        ],
+        "rename": {
+          "likes": "like_count",
+          "dislikes": "dislike_count",
+          "comment_count": "total_comments",
+          "publish_time": "video_publish_time"
+        }
+      }
+    },
+    {
+      "name": "twitch_streams",
+      "source": {
+        "database": "streaming_db",
+        "table_name": "raw_twitch_streams"
+      },
+      "target": {
+        "database": "streaming_db",
+        "table_name": "enriched_twitch_streams",
+        "path": "s3://de-on-youtube1-rawdata-useast1-dev/twitch/enriched_streams/"
+      },
+      "fields": {
+        "select": [
+          "stream_id", "user_name", "game_name", "viewer_count", "started_at", "language"
+        ],
+        "cast": [
+          ["stream_id", "string"],
+          ["user_name", "string"],
+          ["game_name", "string"],
+          ["viewer_count", "long"],
+          ["started_at", "string"],
+          ["language", "string"]
+        ],
+        "rename": {
+          "user_name": "channel_name",
+          "viewer_count": "viewers"
+        }
+      }
+    }
+  ]
+}
